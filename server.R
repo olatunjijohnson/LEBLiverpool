@@ -21,14 +21,14 @@ server <- function(input,output, session){
     r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
     sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
     df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
-    pal <- colorBin(colorRampPalette(c("blue", "red"))(1000), domain = na.omit(raster::values(df)), bins = 7)
+    pal <- colorNumeric(c("red", "blue"), domain = na.omit(raster::values(df)), na.color = "transparent")
     m1 <- leaflet() %>% 
       addTiles() %>% 
       # addRasterImage(df, colors = "YlOrRd", opacity = 0.8) %>%
-      addRasterImage(df, colors = colorRampPalette(c("blue", "red"))(1000), opacity = 0.8, layerId = "values") %>%
+      addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
       # mapview::addMouseCoordinates() %>%
       # mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
-      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB")
+      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
     m1
   })
   
@@ -41,13 +41,13 @@ server <- function(input,output, session){
     r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
     sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
     df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
-    pal <- colorBin(colorRampPalette(c("blue", "red"))(1000), domain = na.omit(raster::values(df)), bins = 7)
+    pal <- colorNumeric(c("red", "blue"), domain = na.omit(raster::values(df)), na.color = "transparent")
     m2 <- leaflet() %>% 
         addTiles() %>% 
-        addRasterImage(df, colors = colorRampPalette(c("blue", "red"))(1000), opacity = 0.8, layerId = "values") %>%
+        addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
         # mapview::addMouseCoordinates() %>%
         # mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
-        leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB")
+        leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
       m2
   })
   ########## exceedance #########################
@@ -61,13 +61,13 @@ server <- function(input,output, session){
     r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
     sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
     df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
-    pal <- colorBin(colorRampPalette(c("blue", "red"))(1000), domain = na.omit(raster::values(df)), bins =  seq(0, 1, length.out = 6))
+    pal <- colorBin(c("blue", "red"), domain = na.omit(raster::values(df)), bins =  seq(0, 1, length.out = 6), na.color = "transparent")
     m3 <- leaflet() %>% 
       addTiles() %>% 
-      addRasterImage(df, colors = colorRampPalette(c("blue", "red"))(1000), opacity = 0.8, layerId = "values") %>%
+      addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
       # mapview::addMouseCoordinates() %>%
       # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
-      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability")
+      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
     m3
   })
   
@@ -80,13 +80,13 @@ server <- function(input,output, session){
       r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
       sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
       df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
-      pal <- colorBin(colorRampPalette(c("blue", "red"))(1000), domain = na.omit(raster::values(df)), bins =  seq(0, 1, length.out = 6))
+      pal <- colorBin(c("blue", "red"), domain = na.omit(raster::values(df)), bins =  seq(0, 1, length.out = 6), na.color = "transparent")
       m4 <- leaflet() %>% 
         addTiles() %>% 
-        addRasterImage(df, colors = colorRampPalette(c("blue", "red"))(1000), opacity = 0.8) %>%
-        # mapview::addMouseCoordinates() %>%
-        # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
-        leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability")
+        addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
+        mapview::addMouseCoordinates() %>%
+        mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
+        leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
       m4
   })
   
@@ -98,13 +98,13 @@ server <- function(input,output, session){
     r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
     sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
     df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
-    pal <- colorNumeric(colorRampPalette(c("blue", "red"))(1000), domain = na.omit(raster::values(df)))
+    pal <- colorNumeric(c("red", "blue"), domain = na.omit(raster::values(df)), na.color = "transparent")
     m5 <- leaflet() %>% 
       addTiles() %>% 
-      addRasterImage(df, colors = colorRampPalette(c("blue", "red"))(1000), opacity = 0.8) %>%
+      addRasterImage(df, colors = pal, opacity = 1) %>%
       # mapview::addMouseCoordinates() %>%
       # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
-      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB")
+      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
     m5
   })
   
@@ -116,13 +116,13 @@ server <- function(input,output, session){
     r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
     sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
     df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
-    pal <- colorNumeric(colorRampPalette(c("blue", "red"))(1000), domain = na.omit(raster::values(df)))
+    pal <- colorNumeric(c("red", "blue"), domain = na.omit(raster::values(df)), na.color = "transparent")
     m6 <- leaflet() %>% 
       addTiles() %>% 
-      addRasterImage(df, colors = colorRampPalette(c("blue", "red"))(1000), opacity = 0.8) %>%
+      addRasterImage(df, colors = pal, opacity = 1) %>%
       # mapview::addMouseCoordinates() %>%
       # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
-      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB")
+      leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
     m6
   })
 }

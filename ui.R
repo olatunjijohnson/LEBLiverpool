@@ -12,7 +12,7 @@ library(dplyr)
 
 shinyUI(fluidPage(
 
-  titlePanel(p("Spatially continuous prediction of Life Expectancy at Birth (LEB)", style = "color:#3474A7")),
+  titlePanel(p("Life Expectancy at Birth (LEB), Liverpool, UK", style = "color:#3474A7")),
   sidebarLayout(
     sidebarPanel(
       #fileInput(inputId = "SDALGCPoutput", label = "Upload output from SDALGCPPred:",
@@ -23,8 +23,8 @@ shinyUI(fluidPage(
       conditionalPanel(condition = "input.tabselected==2",
                        radioButtons(inputId = "resolution2", label = "Life Expectancy at Birth (LEB)",
                                    choices = c("Female"="female", "Male"= "male")),
-                      sliderInput(inputId= "thresholds", "LEB threshold:", value = 70,
-                                                    min = 0, max = 100, step = 1)),
+                      sliderInput(inputId= "thresholds", "LEB threshold:", value = 75,
+                                                    min = 0, max = 110, step = 1)),
       conditionalPanel(condition = "input.tabselected==3",
                        radioButtons(inputId = "resolution3", label = "Life Expectancy at Birth (LEB)",
                                     choices = c("Female"="female", "Male"= "male")),
@@ -39,11 +39,14 @@ shinyUI(fluidPage(
 
       tabsetPanel(type = "tabs",
                   tabPanel("Mean LEB", value=1, conditionalPanel(condition = "input.resolution1=='female'",leafletOutput(outputId = "dmean_risk")), 
-                           conditionalPanel(condition = "input.resolution1=='male'",leafletOutput(outputId = "cmean_risk"))),
+                           conditionalPanel(condition = "input.resolution1=='male'", leafletOutput(outputId = "cmean_risk")), 
+                           includeMarkdown("meanLEB.md")),
                   tabPanel("Non-exceedance", value=2, conditionalPanel(condition = "input.resolution2=='female'", leafletOutput(outputId = "dexceed")),
-                           conditionalPanel(condition = "input.resolution2=='male'", leafletOutput(outputId = "cexceed"))),
+                           conditionalPanel(condition = "input.resolution2=='male'", leafletOutput(outputId = "cexceed")), 
+                           includeMarkdown("ExceedLEB.md")),
                   tabPanel("Quantile", value=3, conditionalPanel(condition = "input.resolution3=='female'", leafletOutput(outputId = "dquantile")),
-                           conditionalPanel(condition = "input.resolution3=='male'", leafletOutput(outputId = "cquantile"))),
+                           conditionalPanel(condition = "input.resolution3=='male'", leafletOutput(outputId = "cquantile")), 
+                           includeMarkdown("QuantLEB.md")),
                   id="tabselected"
       )
     )
