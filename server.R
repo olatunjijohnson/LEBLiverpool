@@ -27,7 +27,7 @@ server <- function(input,output, session){
       # addRasterImage(df, colors = "YlOrRd", opacity = 0.8) %>%
       addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
       mapview::addMouseCoordinates() %>%
-      mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
+      mapview::addImageQuery(df, type="mousemove",  layerId = "values") %>%
       leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
     m1
   })
@@ -46,7 +46,7 @@ server <- function(input,output, session){
         addTiles() %>% 
         addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
         mapview::addMouseCoordinates() %>%
-        mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
+        mapview::addImageQuery(df, type="mousemove",  layerId = "values") %>%
         leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
       m2
   })
@@ -66,7 +66,7 @@ server <- function(input,output, session){
       addTiles() %>% 
       addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
       mapview::addMouseCoordinates() %>%
-      mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
+      mapview::addImageQuery(df, type="mousemove", prefix = "Probability", layerId = "values") %>%
       leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
     m3
   })
@@ -85,7 +85,7 @@ server <- function(input,output, session){
         addTiles() %>% 
         addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
         mapview::addMouseCoordinates() %>%
-        mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
+        mapview::addImageQuery(df, type="mousemove", prefix = "Probability", layerId = "values") %>%
         leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
       m4
   })
