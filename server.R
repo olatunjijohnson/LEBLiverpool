@@ -60,11 +60,11 @@ server <- function(input,output, session){
     dat <- data.frame(x=df2[,1], y=df2[,2], z = as.numeric(excd))
     r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
     sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
-    df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
+    df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'),  method="ngb")
     pal3 <- colorBin(c("blue", "red"), domain = na.omit(raster::values(df)), bins =  seq(0, 1, length.out = 6), na.color = "transparent")
     m3 <- leaflet() %>% 
       addTiles() %>% 
-      addRasterImage(df, colors = pal3, opacity = 1, layerId = "values") %>%
+      addRasterImage(df, colors = pal3, opacity = 1, layerId = "values", method="ngb") %>%
       mapview::addMouseCoordinates() %>%
       # mapview::addImageQuery(df, type="mousemove", prefix = "Probability", layerId = "values") %>%
       leaflet::addLegend(pal = pal3, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
@@ -79,11 +79,11 @@ server <- function(input,output, session){
       dat <- data.frame(x=df2[,1], y=df2[,2], z = as.numeric(excd))
       r1  <- raster::mask(raster::rasterFromXYZ(dat), bound)
       sp::proj4string(r1) = sp::CRS("+init=epsg:27700")
-      df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'))
+      df <- raster::projectRaster(r1, crs=sp::CRS('+init=epsg:4326'),  method="ngb")
       pal4 <- colorBin(c("blue", "red"), domain = na.omit(raster::values(df)), bins =  seq(0, 1, length.out = 6), na.color = "transparent")
       m4 <- leaflet() %>% 
         addTiles() %>% 
-        addRasterImage(df, colors = pal4, opacity = 1, layerId = "values") %>%
+        addRasterImage(df, colors = pal4, opacity = 1, layerId = "values", method="ngb") %>%
         mapview::addMouseCoordinates() %>%
         # mapview::addImageQuery(df, type="mousemove", prefix = "Probability", layerId = "values") %>%
         leaflet::addLegend(pal = pal4, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
