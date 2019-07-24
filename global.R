@@ -1,7 +1,7 @@
 library(shiny)
 library(leaflet)
 library(dplyr)
-# library(mapview)
+library(mapview)
 library(raster)
 
 # predsamples <- read.csv("predsamples.csv")

@@ -26,8 +26,8 @@ server <- function(input,output, session){
       addTiles() %>% 
       # addRasterImage(df, colors = "YlOrRd", opacity = 0.8) %>%
       addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
-      # mapview::addMouseCoordinates() %>%
-      # mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
+      mapview::addMouseCoordinates() %>%
+      mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
       leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
     m1
   })
@@ -45,8 +45,8 @@ server <- function(input,output, session){
     m2 <- leaflet() %>% 
         addTiles() %>% 
         addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
-        # mapview::addMouseCoordinates() %>%
-        # mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
+        mapview::addMouseCoordinates() %>%
+        mapview::addImageQuery(df, type="mousemove", prefix = "Probability",  layerId = "values") %>%
         leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
       m2
   })
@@ -65,8 +65,8 @@ server <- function(input,output, session){
     m3 <- leaflet() %>% 
       addTiles() %>% 
       addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
-      # mapview::addMouseCoordinates() %>%
-      # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
+      mapview::addMouseCoordinates() %>%
+      mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
       leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
     m3
   })
@@ -84,8 +84,8 @@ server <- function(input,output, session){
       m4 <- leaflet() %>% 
         addTiles() %>% 
         addRasterImage(df, colors = pal, opacity = 1, layerId = "values") %>%
-        # mapview::addMouseCoordinates() %>%
-        # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
+        mapview::addMouseCoordinates() %>%
+        mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
         leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "probability", opacity = 1)
       m4
   })
@@ -102,8 +102,8 @@ server <- function(input,output, session){
     m5 <- leaflet() %>% 
       addTiles() %>% 
       addRasterImage(df, colors = pal, opacity = 1) %>%
-      # mapview::addMouseCoordinates() %>%
-      # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
+      mapview::addMouseCoordinates() %>%
+      mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
       leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
     m5
   })
@@ -120,8 +120,8 @@ server <- function(input,output, session){
     m6 <- leaflet() %>% 
       addTiles() %>% 
       addRasterImage(df, colors = pal, opacity = 1) %>%
-      # mapview::addMouseCoordinates() %>%
-      # mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
+      mapview::addMouseCoordinates() %>%
+      mapview::addImageQuery(df, type="mousemove", layerId = "values") %>%
       leaflet::addLegend(pal = pal, values = na.omit(raster::values(df)), title = "LEB", opacity = 1)
     m6
   })
